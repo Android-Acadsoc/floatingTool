@@ -13,6 +13,7 @@ import com.yhao.floatwindow.FloatWindow;
 import com.yhao.floatwindow.enums.MoveType;
 import com.yhao.floatwindow.enums.Screen;
 import com.yhao.floatwindow.interfaces.BaseFloatWindow;
+import com.yhao.floatwindow.interfaces.ViewStateListener;
 
 public class MainActivity extends Activity {
 
@@ -26,7 +27,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setTitle("A");
         setContentView(R.layout.activity_main);
-        initUI();
+//        initUI();
     }
 
     private void initUI() {
@@ -35,13 +36,51 @@ public class MainActivity extends Activity {
         mBuilderA = FloatWindow.with(getApplicationContext()).setView(mImageView).setWidth(Screen.WIDTH, 0.2f)
                 .setHeight(Screen.WIDTH, 0.2f).setX(Screen.WIDTH, 0.8f).setY(Screen.HEIGHT, 0.3f)
                 .setMoveType(MoveType.SLIDE).setMoveStyle(500, new BounceInterpolator()).setDesktopShow(true)
-                .setTag("mFirstWindow");
+                .setTag("mFirstWindow").setViewStateListener(new ViewStateListener() {
+                    @Override
+                    public void onPositionUpdate(int x, int y) {
+
+                    }
+
+                    @Override
+                    public void onShow() {
+
+                    }
+
+                    @Override
+                    public void onHide() {
+
+                    }
+
+                    @Override
+                    public void onDismiss() {
+
+                    }
+
+                    @Override
+                    public void onMoveAnimStart() {
+
+                    }
+
+                    @Override
+                    public void onMoveAnimEnd() {
+                        alert("无需权限的悬浮窗");
+                    }
+
+                    @Override
+                    public void onBackToDesktop() {
+
+                    }
+                });
 
     }
 
     public void onClick(View view) {
-        mImageView.setImageResource(R.drawable.c_outline_add_circle_outline_black_48dp);
-        mImageView2.setImageResource(R.drawable.c_outline_settings_black_48dp);
+        if (mImageView != null) {
+
+            mImageView.setImageResource(R.drawable.c_outline_add_circle_outline_black_48dp);
+            mImageView2.setImageResource(R.drawable.c_outline_settings_black_48dp);
+        }
         switch (view.getId()) {
             case R.id.btnOpenActivityB:
                 // 打开 B 界面
@@ -58,15 +97,8 @@ public class MainActivity extends Activity {
                 // }
                 break;
             case R.id.btnInitAndShowA:
-                // 初始化展示
-                mFirstWindow = FloatWindow.get("mFirstWindow");
-                // 效果图1
-                if (mFirstWindow != null) {
-                    FloatWindow.get("mFirstWindow").show();
-                } else {
-                    mBuilderA.build();
-                    FloatWindow.get("mFirstWindow").show();
-                }
+                showFloating();  // 初始化展示
+
                 break;
 
             case R.id.btnHideA:
@@ -97,9 +129,26 @@ public class MainActivity extends Activity {
         }
     }
 
+    private void showFloating() {
+        mFirstWindow = FloatWindow.get("mFirstWindow");
+        // 效果图1
+        if (mFirstWindow != null) {
+            FloatWindow.get("mFirstWindow").show();
+        } else {
+            mBuilderA.build();
+            FloatWindow.get("mFirstWindow").show();
+        }
+    }
+
     private void alert(String status) {
         Toast.makeText(this, status, Toast.LENGTH_LONG).show();
         Log.i("FloatWindow", status);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+       /* FloatWindow.destroy("mFirstWindow");
+        showFloating();*/
+    }
 }

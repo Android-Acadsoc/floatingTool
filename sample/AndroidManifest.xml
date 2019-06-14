@@ -5,12 +5,8 @@
     android:versionCode="1"
     android:versionName="1.0">
 
-    <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="22"
-        tools:ignore="OldTargetApi" />
 
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!--<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />-->
 
     <application
         android:name="com.example.fixedfloatwindow.BaseApplication"
@@ -28,11 +24,11 @@
         <activity android:name="com.example.fixedfloatwindow.ActivityB" />
         <activity android:name="com.example.fixedfloatwindow.ActivityC" />
         <activity android:name="com.example.fixedfloatwindow.BaseActivity" />
-        <activity
+        <!--<activity
             android:name="com.yhao.floatwindow.FloatActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="standard"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />-->
     </application>
 
 </manifest>
