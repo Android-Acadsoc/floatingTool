@@ -19,6 +19,7 @@ import com.yhao.floatwindow.interfaces.BaseFloatWindow;
  * @date 2019/6/14 12:49
  * @desc 全局悬浮窗工具，暂时用于测试入口
  * 求稳可申请权限：<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+ * 原仓库：
  */
 public class FloatingTool {
     private static FloatingTool sFloatingTool;
@@ -36,6 +37,12 @@ public class FloatingTool {
         return sFloatingTool;
     }
 
+    private Activity currentA;
+
+    public Activity getCurrentActivity() {
+        return currentA;
+    }
+
     private final static String TestBtnTag = "mFirstWindow";
     private Runnable mRunnable;
 
@@ -48,11 +55,12 @@ public class FloatingTool {
         mApplication.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle bundle) {
-
+                currentA = activity;
             }
 
             @Override
             public void onActivityStarted(Activity activity) {
+                currentA = activity;
 
             }
 
